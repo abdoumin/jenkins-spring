@@ -16,7 +16,7 @@ services:
       - MYSQL_ROOT_PASSWORD=user
       - MYSQL_DATABASE=estivage
     ports:
-      - 3308:3306
+      - 3309:3307
     volumes:
       - db:/var/lib/mysql
     networks:
@@ -24,49 +24,17 @@ services:
   app:
     depends_on:
       - mysqldb
-    image : 
-      abdoumin/fullstackbackendapp:latest
+    image :
+      abdoumin/demo-app:2.0
     restart: on-failure
     ports:
-      - 6868:8080
-#    environment:
-#      SPRING_APPLICATION_JSON: '{
-#        "spring.datasource.url"  : "jdbc:mysql://mysqldb/estivage",
-#        "spring.datasource.username" : "root",
-#        "spring.datasource.password" : "user",
-#        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-#        "spring.jpa.hibernate.ddl-auto" : "update"
-#      }'
+      - 6969:8181
+
     volumes:
       - .m2:/root/.m2
-#    stdin_open: true
-#    tty: true
     networks:
       - backend
       - frontend
-
-#  webserver:
-#    depends_on:
-#      - front-end
-#    image: nginx:latest
-#    ports:
-#      - 4200:80
-#    restart: always
-#    volumes:
-#      - ./nginx/conf/:/etc/nginx/conf.d/:ro
-#    networks:
-#      - submission-app
-
-  front-end:
-    image : abdoumin/fullstackwebapp:latest
-    restart: always
-    networks:
-      - frontend
-    tty: true
-    ports:
-      - 3000:80
-    depends_on:
-      - app
 
 
 volumes:
