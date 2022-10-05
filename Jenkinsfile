@@ -22,6 +22,7 @@ pipeline{
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push abdoumin/demo-app:1.0"
+                        sh "docker run -p 8081:8081 abdoumin/demo-app:1.0 "
                     }}
         }
     }
