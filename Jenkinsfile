@@ -9,7 +9,7 @@ pipeline{
     {
         steps {
             script{
-                sh 'docker build -t abdoumin/demo-app:1.0. .'
+                sh 'docker build -t abdoumin/demo-app:2.0. .'
             }
         }
     }
