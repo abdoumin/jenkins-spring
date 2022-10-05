@@ -1,22 +1,28 @@
 pipeline{
 
     agent any
+    tools {
+        maven 'Maven'
+    }
     stages {
     stage("build")
     {
         steps {
-        echo "building the application"}
+            script{
+                sh 'docker build -t abdoumin/demo-app:1.0. .'
+            }
+        }
     }
 
-    stage("test")
-        {
-            steps {
-            echo "testing the application"}
-        }
+
     stage("deploy")
         {
             steps {
-            echo "deploying the application"}
+            echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker push abdoumin/demo-app:1.0"
+                    }}
         }
     }
     }
